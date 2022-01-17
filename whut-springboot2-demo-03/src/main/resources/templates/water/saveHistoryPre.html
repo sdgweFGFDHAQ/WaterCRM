@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> XXX送水公司后台管理系统</title>
+
+    <!--Bootstrap固定框架-->
+    <link rel='stylesheet' th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}">
+    <link rel='stylesheet' th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.css}">
+    <!--图标库-->
+    <link rel='stylesheet' th:href='@{/css/material-design-iconic-font.min.css}'>
+    <!--核心样式-->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+
+<div id="viewport">
+
+    <!-- Sidebar -->
+    <div id="sidebar" th:replace="~{waterMainMenu::menu}">
+    </div>
+
+    <!-- Content -->
+    <div id="content">
+        <nav class="navbar navbar-default" th:replace="~{waterMainMenu::nav}"></nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form-horizontal" method="post" th:action="@{/history/saveHistory}">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">客户ID</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="custId" placeholder="客户ID">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">送水工ID</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="workerId" placeholder="送水工ID">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">送水时间</label>
+                            <div class="col-sm-5">
+                                <input type="date" class="form-control" name="sendWaterTime" placeholder="送水时间">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">水票数量</label>
+                            <div class="col-sm-5">
+                                <select name="sendWaterCount" class="form-control">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="200">200</option>
+                                        <option value="500">500</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-5">
+                                <input type="submit" class="btn btn-primary" name="submit" value="提交">
+                                &nbsp;&nbsp;
+                                <input type="reset" class="btn btn-warning" name="reset" value="取消">
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

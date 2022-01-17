@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/whut-springboot2.iml" filepath="$PROJECT_DIR$/.idea/whut-springboot2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/whut-springboot2-demo-01/whut-springboot2-demo-01.iml" filepath="$PROJECT_DIR$/whut-springboot2-demo-01/whut-springboot2-demo-01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/whut-springboot2-demo-02/whut-springboot2-demo-02.iml" filepath="$PROJECT_DIR$/whut-springboot2-demo-02/whut-springboot2-demo-02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/whut-springboot2-demo-03/whut-springboot2-demo-03.iml" filepath="$PROJECT_DIR$/whut-springboot2-demo-03/whut-springboot2-demo-03.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whut.springboot.mapper.HistoryMapper">
+    <resultMap id="historyMap" type="History">
+        <id property="hid" column="hid"></id>
+        <result property="sendWaterTime" column="send_water_time"/>
+        <result property="sendWaterCount" column="send_water_count"/>
+        <!--history表去关联customer表
+此时我需要显示 customer表的cust_name列
+-->
+        <association property="worker" javaType="Worker">
+            <result property="workerName" column="worker_name"/>
+        </association>
+        <association property="cust" javaType="Customer">
+            <result property="custName" column="cust_name"/>
+        </association>
+    </resultMap>
+
+    <select id="listHistory" resultMap="historyMap">
+        select h.hid, w.worker_name, h.send_water_time, c.cust_name, h.send_water_count
+        FROM history h,
+             worker w,
+             customer c
+        WHERE h.worker_id = w.wid
+          and h.cust_id = c.cid
+    </select>
+
+    <select id="searchHistoryByTime" parameterType="string" resultMap="historyMap">
+        select h.hid,w.worker_name,h.send_water_time,c.cust_name,h.send_water_count
+        FROM history h , worker w , customer c
+        WHERE h.worker_id = w.wid and h.cust_id = c.cid
+        <if test="startswTime != null and startswTime.length > 0 and endswTime != null and endswTime.length > 0">
+            and h.send_water_time between #{startswTime} and #{endswTime}
+        </if>
+    </select>
+
+    <select id="getHistoryById" resultMap="historyMap">
+        select h.hid, w.worker_name, h.send_water_time, c.cust_name, h.send_water_count
+        FROM history h,
+             worker w,
+             customer c
+        WHERE h.worker_id = w.wid
+          and h.cust_id = c.cid
+          and h.hid = #{hid}
+    </select>
+
+    <update id="updateHistory" parameterType="History">
+        update history
+        set cust_id          = #{cust.cid}
+          , worker_id        = #{worker.wid}
+          , send_water_time  = #{sendWaterTime}
+          , send_water_count = #{sendWaterCount}
+        where hid = #{hid}
+    </update>
+
+    <insert id="saveHistory" parameterType="history">
+        insert into history(cust_id, worker_id, send_water_time, send_water_count)
+        values (#{cust.cid}, #{worker.wid}, #{sendWaterTime}, #{sendWaterCount})
+    </insert>
+
+    <delete id="deleteHistoryById" parameterType="int">
+        delete from history where hid = #{hid}
+    </delete>
+
+</mapper>

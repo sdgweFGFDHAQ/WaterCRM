@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改客户信息</title>
+
+    <!--Bootstrap固定框架-->
+    <link rel='stylesheet' th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}">
+    <link rel='stylesheet' th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.css}">
+    <!--图标库-->
+    <link rel='stylesheet' th:href='@{/css/material-design-iconic-font.min.css}'>
+    <!--核心样式-->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+
+<div id="viewport">
+
+    <!-- Sidebar -->
+    <div id="sidebar" th:replace="waterMainMenu::menu">
+
+    </div>
+
+    <!-- Content -->
+    <div id="content">
+        <nav class="navbar navbar-default" th:replace="waterMainMenu::nav">
+
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <!-- 修改客户信息的表单-->
+                <div class="col-md-12">
+                    <form class="form-horizontal" method="post" th:action="@{/cust/updateCustomer}" >
+
+                        <input type="hidden" th:value="${customer.cid}" name="cid"/>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">客户名称</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" th:value="${customer.custName}" name="custName"  placeholder="客户名称">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">客户电话</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" th:value="${customer.custMobile}" name="custMobile"  placeholder="客户电话">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">客户地址</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" th:value="${customer.custAddress}" name="custAddress"  placeholder="客户地址">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">客户水票</label>
+                            <div class="col-sm-5">
+                                <select name="custTicket" class="form-control">
+                                    <option vlaue="10" th:selected="${customer.custTicket eq 10}">10</option>
+                                    <option vlaue="20" th:selected="${customer.custTicket eq 20}">20</option>
+                                    <option vlaue="30" th:selected="${customer.custTicket eq 30}">30</option>
+                                    <option vlaue="50" th:selected="${customer.custTicket eq 50}">50</option>
+                                    <option vlaue="100" th:selected="${customer.custTicket eq 100}">100</option>
+                                    <option vlaue="200" th:selected="${customer.custTicket eq 200}">200</option>
+                                    <option vlaue="500" th:selected="${customer.custTicket eq 500}">500</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-5">
+                                <input type="submit" class="btn btn-primary" name="submit"  value="提交">
+                                &nbsp;&nbsp;
+                                <input type="reset" class="btn btn-warning" name="reset"  value="取消">
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>

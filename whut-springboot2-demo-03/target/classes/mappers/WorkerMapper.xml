@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whut.springboot.mapper.WorkerMapper">
+    <sql id="selectWorker">
+        select wid,worker_name,worker_salary,worker_money,worker_image
+        from worker
+    </sql>
+    <select id="listWorker" resultType="worker">
+        <include refid="selectWorker"></include>
+    </select>
+
+    <select id="searchWorkerByName" parameterType="string" resultType="worker">
+        <include refid="selectWorker"></include>
+        where 1 = 1
+        <if test="workerName != null and workerName.length >0">
+            and worker_name like CONCAT('%',#{workerName},'%')
+        </if>
+    </select>
+
+    <insert id="saveWorker" parameterType="worker">
+--         useGeneratedKeys="true" keyProperty="wid"
+        insert into worker(worker_name,worker_salary,worker_money,worker_image)
+        values(#{workerName},#{workerSalary},#{workerMoney},#{workerImage})
+    </insert>
+
+    <select id="getWorkerById" resultType="worker">
+        <include refid="selectWorker"></include>
+        where wid = #{wid}
+
+    </select>
+
+    <update id="updateWorker" parameterType="worker">
+        update worker
+        set worker_name = #{workerName}, worker_salary = #{workerSalary},worker_money = #{workerMoney},worker_image = #{workerImage}
+        where wid = #{wid}
+    </update>
+
+    <delete id="deleteWorkerById" parameterType="int">
+        delete from worker where wid = #{wid}
+    </delete>
+
+    <update id="adjustSalary" parameterType="int" >
+        update worker
+        set worker_salary = #{workerSalary}
+        where wid = #{wid}
+    </update>
+</mapper>

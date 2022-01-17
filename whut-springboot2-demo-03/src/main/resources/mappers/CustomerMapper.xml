@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whut.springboot.mapper.CustomerMapper">
+    <sql id="selectCustomer">
+        select cid,cust_name,cust_mobile,cust_address,cust_ticket
+        from customer
+    </sql>
+
+    <select id="listCustomer" resultType="customer">
+        <include refid="selectCustomer"></include>
+    </select>
+
+    <select id="searchCustomerByName" parameterType="string" resultType="customer">
+        <include refid="selectCustomer"></include>
+        where 1 = 1
+        <if test="custName != null and custName.length >0">
+            and cust_name like CONCAT('%',#{custName},'%')
+       </if>
+    </select>
+
+    <insert id="saveCustomer" parameterType="customer">
+        insert into customer(cust_name,cust_mobile,cust_address,cust_ticket)
+        values(#{custName},#{custMobile},#{custAddress},#{custTicket})
+    </insert>
+
+    <select id="getCustomerById" resultType="customer">
+        <include refid="selectCustomer"></include>
+        where cid = #{cid}
+
+    </select>
+
+    <update id="updateCustomer" parameterType="customer">
+        update customer
+        set cust_name = #{custName}, cust_mobile = #{custMobile},cust_address = #{custAddress},cust_ticket = #{custTicket}
+        where cid = #{cid}
+    </update>
+
+    <delete id="deleteCustomerById" parameterType="int">
+        delete from customer where cid = #{cid}
+    </delete>
+</mapper>

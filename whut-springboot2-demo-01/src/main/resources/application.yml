@@ -1,0 +1,8 @@
+server:
+  port: 8088
+  servlet:
+    context-path: /water
+
+spring:
+  application:
+    name: water-8088

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whut.springboot.mapper.SendWaterInfoMapper">
+    <select id="searchInfoByTime">
+        select w.worker_name ,w.worker_salary worker_salary, w.worker_money worker_money,
+               IFNULL(sum(h.send_water_count),0) water_count,
+               ifnull(sum(h.send_water_count * w.worker_money)+w.worker_salary,w.worker_salary) real_salary
+        from worker w left join history h on w.wid = h.worker_id
+        where h.send_water_time between #{startTime} and #{endTime}
+        group by w.wid;
+    </select>
+</mapper>
